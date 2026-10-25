@@ -2,7 +2,7 @@
 
 ## What it is
 
-Mise is an AI cinematography tool for BookTok and YouTube creators. Speak or type a book review (up to **50 books per video**), and Mise directs the video inside a persistent 3D library: it glides the camera across your bookshelves, pulls each named book out into a format-aware **Hero Zone** facing the viewer at a clean 3D angle, holds dedicated **Negative Space** for your talking-head overlay (`9:16` BookTok or `16:9` YouTube), opens the 3D book while you talk to flip through your **Star Rating**, **Personal Review**, and **Highlighted Quote** before closing back to the front cover, and surrounds the book with bespoke **3D Collectible Toys/Trophies** and high-DPI 3D effects that frame the outer border without ever covering the title or author's name. Then it watches its own rendered WebGL frames, critiques them against the plan, and automatically patches and re-renders any shot that missed.
+Mise is an AI cinematography tool for BookTok and YouTube creators. Speak or type a book review (up to **50 books per video**), and Mise directs the video inside a persistent 3D library: it glides the camera across your bookshelves, pulls each named book out into a format-aware **Hero Zone** facing the viewer at a clean 3D angle, holds dedicated **Negative Space** for your talking-head overlay (`9:16` BookTok or `16:9` YouTube), opens the 3D book while you talk to flip through your **Star Rating**, **Personal Review**, and **Highlighted Quote** before closing back to the front cover, and surrounds the book with high-DPI 3D effects and living pop-up dioramas that frame the outer border without ever covering the title or author's name. Then it watches its own rendered WebGL frames, critiques them against the plan, and automatically patches and re-renders any shot that missed.
 
 Built at the Gemini 4 Argon SF Hackathon (Cerebral Valley x Google DeepMind), October 25, 2026, in the **More Dimensions** track. Built with Google Antigravity and Gemini 4 Argon (`2,097,152`-token context window).
 
@@ -12,7 +12,7 @@ BookTok and YouTube creators who read on e-readers have no physical shelf to fil
 
 ## Who it is for
 
-BookTok and BookTube creators making review videos or channel trailers, especially e-reader readers with no physical shelf. The library in the video persists across videos like a real room, so viewers can audit the shelf. That continuity is the trust mechanism.
+BookTok and BookTube creators making review videos, especially e-reader readers with no physical shelf. The library in the video persists across videos like a real room, so viewers can audit the shelf. That continuity is the trust mechanism.
 
 ## What was built today versus what was pre-existing
 
@@ -28,14 +28,10 @@ BookTok and BookTube creators making review videos or channel trailers, especial
       2. **Page 2 — Personal Review**: Typesets the user's review from the library dataset (automatically skipped if the book has no review).
       3. **Page 3 — Highlighted Quote**: Displays one of the user's highlighted e-reader quotes with a warm yellow highlight marker (automatically skipped if the book has no highlights).
     - As soon as the available pages finish, the book smoothly closes (`setOpen(0)`) to showcase the front cover again before returning to the shelf.
-  - **80 Bespoke 3D Collectible Book Toys/Trophies (Last 12 Months Reading History)**:
-    - Every book in the `LibrarySim` dataset with a `dateRead` in the last 12 months (`80` books from `2025/10/12` to `2026/10/10`) has its own custom-designed **3D Collectible Figurine & Engraved Mahogany-and-Brass Pedestal Trophy** (e.g., *S.S. Karnak Paddle Steamer & Golden Scarab* for *Death on the Nile*, *Gilded Cathedral Domes & Inquisitor Candle* for *The Brothers Karamazov*, *White Porcelain Opera Mask & Crimson Rose* for *The Phantom of the Opera*, *Alchemist's Ruby Elixir & Pact Seal* for *Faust*, *Spada Treasure Chest & Château d'If Key* for *The Count of Monte Cristo*).
-  - **"Welcome to My Library" Movie-Like Channel Trailer (`createWelcomeToMyLibraryTrailer`)**:
-    - Analyzes the user's reading history and generates a **5-Act Theatrical YouTube Channel Trailer** and **Reading Persona Dossier** (*"The Midnight Canon & Golden-Age Mystery Auteur — 863 Volumes · 247 Books Read · 80 Read in the Last 12 Months"*), directing camera sweeps across the 3D library stage and showcasing signature books alongside their 3D Trophies.
   - **Phased Directing Styles & Non-Occluding 3D Effects**:
     - **Phase 1 — Simple Cinema Pans, No Frills (`simple_cinema_pans`)**: Pure steady tripod camera glides across wall bookcases, fixed-second pull-out transitions, and voiceover-synced holds.
     - **Phase 2 — Polished, Serious, Subtle (`polished_serious_subtle`)**: Preserves natural room and shelf lighting while adding smooth vertical floating motion and **FOV-compensated focal breathing**.
-    - **Phase 3 — Over the Top, Visually Catchy (`over_the_top_catchy`)**: High-energy `0.52s` whip-pans with Dutch-angle Z-roll, elastic `-7.5°` crash-zooms, 3-page open-book sequence, **Argon 4 Living Pop-Up Book Diorama**, **80 Bespoke 3D Book Trophies**, and **10 High-DPI Sculpted 3D Cutout Effects** (*5-Pointed Starburst*, *Glossy Floating Hearts*, *Cleaved Broken Heart*, *Jeweled Royal Crown*, *Electric Lightning Bolts*, *Rising Tapered Flames*, *Teardrop Crystal Rain*, *Crossed Broadswords*, *Runic Portal Vortex*, and *Cylindrical Trash-Can Toss*). All 3D effects use hardware depth testing and outer-border rectangular projection so they **never cover the book title or author's name**.
+    - **Phase 3 — Over the Top, Visually Catchy (`over_the_top_catchy`)**: High-energy `0.52s` whip-pans with Dutch-angle Z-roll, elastic `-7.5°` crash-zooms, 3-page open-book sequence, **Argon 4 Living Pop-Up Book Diorama**, and **10 High-DPI Sculpted 3D Cutout Effects** (*5-Pointed Starburst*, *Glossy Floating Hearts*, *Cleaved Broken Heart*, *Jeweled Royal Crown*, *Electric Lightning Bolts*, *Rising Tapered Flames*, *Teardrop Crystal Rain*, *Crossed Broadswords*, *Runic Portal Vortex*, and *Cylindrical Trash-Can Toss*). All 3D effects use hardware depth testing and outer-border rectangular projection so they **never cover the book title or author's name**.
   - **"More Dimensions" Argon Verification Loop**: Argon inspects the captured WebGL renders and scene telemetry after the sequence completes, verifies that every named book filled the Hero Zone clear of the creator's Negative Space Zone and that camera movement and 3D stunts executed accurately, and automatically patches and re-renders any miss.
 
 ## Why Argon
@@ -44,10 +40,9 @@ The verification loop is the Argon-native core: Argon watches rendered shots, cr
 
 ## Architecture
 
-- **Capture**: Microphone recording + live Web Speech transcript (or pasted script / 1-click Channel Trailer generator) with voice `"Cut"` trigger.
-- **Parse (`/api/argon/parse-beats`)**: Gemini 4 Argon (`2,097,152`-token context window) parses up to 50 books per video into structured beats with exact shelf indices, voiceover-synced durations, format-aware framing offsets, and 3D stunt/trophy profiles.
-- **Direct (`StageController`)**: Drives the 3D camera along wall bookcases, spawns and dynamically scales the 3D `BookObject` inside the Hero Zone, animates the 3-Page Open-Book Sequence (`Stars` $\rightarrow$ `Review` $\rightarrow$ `Quote` $\rightarrow$ `Close`), and renders non-occluding 3D Book Trophies and Pop-Up Dioramas around the outer border of the book.
-- **Channel Trailer (`createWelcomeToMyLibraryTrailer`)**: Synthesizes the user's reading history and 12-month trophy collection into a 5-Act theatrical trailer across the 3D library stage.
+- **Capture**: Microphone recording + live Web Speech transcript (or pasted script) with voice `"Cut"` trigger.
+- **Parse (`/api/argon/parse-beats`)**: Gemini 4 Argon (`2,097,152`-token context window) parses up to 50 books per video into structured beats with exact shelf indices, voiceover-synced durations, format-aware framing offsets, and 3D stunt profiles.
+- **Direct (`StageController`)**: Drives the 3D camera along wall bookcases, spawns and dynamically scales the 3D `BookObject` inside the Hero Zone, animates the 3-Page Open-Book Sequence (`Stars` $\rightarrow$ `Review` $\rightarrow$ `Quote` $\rightarrow$ `Close`), and renders non-occluding Pop-Up Dioramas and 3D effects around the outer border of the book.
 - **Verify (`/api/argon/verify-render`)**: Audits captured WebGL frames + telemetry against the beat plan, surfaces specific camera/framing/stunt fixes, and triggers an automatic Pass #2 re-render when a miss is detected.
 
 ## How to run it
