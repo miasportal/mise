@@ -2,7 +2,7 @@
 
 ## What it is
 
-Mise is an AI cinematography tool for book creators. Speak a book review out loud, and Mise directs the video: it pulls each named book forward in a 3D library, shifts the lighting with the mood of what you say, flashes a favorite highlight, and holds negative space for your talking-head overlay. Then it watches its own work, critiques it, and fixes what missed.
+Mise is an AI cinematography tool for BookTok creators. Speak a book review out loud, and Mise directs the video: it pulls each named book forward in a 3D library, shifts the lighting with the mood of what you say, flashes a favorite highlight, and holds negative space for your talking-head overlay. Then it watches its own work, critiques it, and fixes what missed.
 
 Built at the Gemini 4 Argon SF Hackathon (Cerebral Valley x Google DeepMind), October 25, 2026, in the More Dimensions track. Built with Google Antigravity and Gemini 4 Argon.
 
@@ -12,7 +12,7 @@ BookTok and YouTube creators who read on e-readers have no physical shelf to fil
 
 ## Who it is for
 
-Book creators making review videos, especially e-reader readers with no physical shelf. The library in the video persists across videos like a real room, so viewers can audit the shelf. That continuity is the trust mechanism.
+BookTok creators making review videos, especially e-reader readers with no physical shelf. The library in the video persists across videos like a real room, so viewers can audit the shelf. That continuity is the trust mechanism.
 
 ## What was built today versus what was pre-existing
 
